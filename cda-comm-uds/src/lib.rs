@@ -1478,12 +1478,10 @@ impl<S: EcuGateway, R: DiagServiceResponse, T: EcuManager<Response = R>> UdsEcu
         ecu: &str,
         security_plugin: &DynamicPlugin,
     ) -> Result<Vec<ComponentOperationsInfo>, DiagServiceError> {
-        let items = self
-            .ecu_manager(ecu)?
+        self.ecu_manager(ecu)?
             .read()
             .await
-            .get_components_operations_info(security_plugin);
-        Ok(items)
+            .get_components_operations_info(security_plugin)
     }
 
     async fn get_routine_subfunctions(

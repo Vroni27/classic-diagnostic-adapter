@@ -614,7 +614,7 @@ pub trait EcuManager:
     fn get_components_operations_info(
         &self,
         security_plugin: &DynamicPlugin,
-    ) -> Vec<ComponentOperationsInfo>;
+    ) -> Result<Vec<ComponentOperationsInfo>, DiagServiceError>;
     /// Check which `RoutineControl` subfunctions (Stop 0x02, `RequestResults` 0x03) are defined
     /// for the given routine service name.
     ///

@@ -449,7 +449,7 @@ impl<S: SecurityPlugin> cda_interfaces::EcuManager for EcuManager<S> {
             service
                 .request_id()
                 .is_some_and(|service_id| raw_data_sid == service_id)
-        });
+        })?;
         let mapped_service = matched_services.first().ok_or_else(|| {
             DiagServiceError::NotFound(format!(
                 "No matching generic service found for SID {raw_data_sid:#04X}"
@@ -790,7 +790,7 @@ impl<S: SecurityPlugin> cda_interfaces::EcuManager for EcuManager<S> {
                 })
                 .as_ref()
                 .is_some_and(|_| service.request_id().is_some_and(|id| id == service_id))
-        })
+        })?
         .into_iter()
         .next()
         .and_then(|service| service.try_into().ok())
@@ -969,6 +969,7 @@ impl<S: SecurityPlugin> cda_interfaces::EcuManager for EcuManager<S> {
                 .request_id()
                 .is_some_and(|id| id == service_ids::READ_DATA_BY_IDENTIFIER)
         })
+        .unwrap_or_default()
         .into_iter()
         .filter(|service| Self::is_service_visible(security_plugin, service))
         .filter_map(|service| {
@@ -1384,15 +1385,17 @@ impl<S: SecurityPlugin> cda_interfaces::EcuManager for EcuManager<S> {
     fn get_components_operations_info(
         &self,
         security_plugin: &DynamicPlugin,
-    ) -> Vec<ComponentOperationsInfo> {
+    ) -> Result<Vec<ComponentOperationsInfo>, DiagServiceError> {
+        println!("get components operations info function");
+        tracing::info!("get components operations info function");
         let routine_control_services = self.get_services_from_variant_and_parent_refs(|service| {
             service
                 .request_id()
                 .is_some_and(|id| id == service_ids::ROUTINE_CONTROL)
                 && Self::is_service_visible(security_plugin, service)
-        });
+        })?;
 
-        self.filter_and_transform_operations(routine_control_services)
+        Ok(self.filter_and_transform_operations(routine_control_services))
     }
 
     /// Check which additional `RoutineControl` subfunctions are defined for a specific routine.
@@ -1418,7 +1421,7 @@ impl<S: SecurityPlugin> cda_interfaces::EcuManager for EcuManager<S> {
                             .eq_ignore_ascii_case(service_name)
                     })
                 })
-        });
+        })?;
 
         if all_rc_services.is_empty() {
             return Err(DiagServiceError::NotFound(format!(
@@ -2323,7 +2326,9 @@ impl<S: SecurityPlugin> EcuManager<S> {
     }
 
     fn variant(&self) -> Option<datatypes::Variant<'_>> {
+        tracing::info!("Getting ECU variant, current index: {:?}", self.variant_index);
         let idx = self.variant_index?;
+        tracing::info!("Detected ECU variant index: {idx}");
         let variants = self.diag_database.ecu_data().ok()?.variants()?;
         Some(variants.get(idx).into())
     }
@@ -2550,11 +2555,18 @@ impl<S: SecurityPlugin> EcuManager<S> {
     where
         F: Fn(&datatypes::DiagService) -> bool,
     {
-        diag_layer
+        tracing::info!("get services from diag layer and parent refs");
+        let diag_layer_services: Vec<_> = diag_layer
             .diag_services()
             .into_iter()
             .flatten()
             .map(datatypes::DiagService)
+            .collect();
+
+        tracing::info!("DiagLayer services count: {}", diag_layer_services.len());
+
+        diag_layer_services
+            .into_iter()
             .chain(
                 Self::get_parent_ref_services_recursive(parent_refs)
                     .into_iter()
@@ -2618,19 +2630,35 @@ impl<S: SecurityPlugin> EcuManager<S> {
     fn get_services_from_variant_and_parent_refs<F>(
         &self,
         service_filter: F,
-    ) -> Vec<datatypes::DiagService<'_>>
+    ) -> Result<Vec<datatypes::DiagService<'_>>, DiagServiceError>
     where
         F: Fn(&datatypes::DiagService) -> bool,
     {
-        self.variant()
-            .and_then(|v| v.diag_layer().map(|dl| (dl, v.parent_refs())))
+        tracing::info!("get_services_from_variant_and_parent_refs");
+
+        let variant_opt = self.variant();
+        tracing::info!("self.variant() returns: {:?}", variant_opt.is_some());
+
+        let variant_data = variant_opt.ok_or_else(|| {
+            DiagServiceError::InvalidState(
+                "No variant detected; cannot look up services".to_owned(),
+            )
+        })?;
+
+        let variant = variant_data
+            .diag_layer()
+            .map(|dl| (dl, variant_data.parent_refs()));
+
+        tracing::info!("Variant diag layer and parent refs found: {}", variant.is_some());
+
+        Ok(variant
             .map_or(<_>::default(), |(diag_layer, parent_refs)| {
                 Self::get_services_from_diag_layer_and_parent_refs(
                     &(diag_layer.into()),
                     parent_refs.into_iter().flatten().map(datatypes::ParentRef),
                     service_filter,
                 )
-            })
+            }))
     }
 
     /// Retrieves diagnostic services from a given functional group and its parent
@@ -4918,6 +4946,7 @@ impl<S: SecurityPlugin> EcuManager<S> {
                         })
                     })
             })
+            .ok()?
             .into_iter()
             .next()
         };
@@ -4990,7 +5019,7 @@ impl<S: SecurityPlugin> EcuManager<S> {
             service
                 .request_id()
                 .is_some_and(|req_id| req_id == service_id)
-        });
+        })?;
 
         if services.is_empty() {
             Err(DiagServiceError::NotFound(format!(
