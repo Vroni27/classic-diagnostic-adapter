@@ -44,8 +44,8 @@ pub mod config;
 pub mod mdd;
 pub mod update;
 
-#[global_allocator]
-static GLOBAL: mimalloc::MiMalloc = mimalloc::MiMalloc;
+// #[global_allocator]
+// static GLOBAL: mimalloc::MiMalloc = mimalloc::MiMalloc;
 
 const DOIP_HEALTH_COMPONENT_KEY: &str = "doip";
 

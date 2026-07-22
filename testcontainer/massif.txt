@@ -1,0 +1,795 @@
+--------------------------------------------------------------------------------
+Command:            /app/opensovd-cda -d /app/odx
+Massif arguments:   --massif-out-file=/output/massif.out --time-unit=ms --detailed-freq=10 --alloc-fn=__rust_alloc --alloc-fn=__rust_alloc_zeroed --alloc-fn=__rust_realloc
+ms_print arguments: massif-output/massif.out
+--------------------------------------------------------------------------------
+
+
+    MB
+8.040^             #                                                          
+     |             #                                                          
+     |             #                                                          
+     |             #                                                          
+     |             #                                                          
+     |             #                                                          
+     |             #                                                          
+     |             #                                                          
+     |             #                                                          
+     |             #                                                          
+     |             #                                                          
+     |             #                                                          
+     |             #                                                          
+     |             #                                                          
+     |             #                                                          
+     |             #                                                          
+     |             #                                                          
+     |             #                                                          
+     |             #                                                          
+     |             #                                                          
+   0 +----------------------------------------------------------------------->s
+     0                                                                   12.75
+
+Number of snapshots: 98
+ Detailed snapshots: [3, 19, 25 (peak), 55, 65, 75, 85, 95]
+
+--------------------------------------------------------------------------------
+  n       time(ms)         total(B)   useful-heap(B) extra-heap(B)    stacks(B)
+--------------------------------------------------------------------------------
+  0              0                0                0             0            0
+  1          1,619              488              472            16            0
+  2          1,624                0                0             0            0
+  3          1,660               40               32             8            0
+80.00% (32B) (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+->80.00% (32B) 0x5118F83: __cxa_thread_atexit_impl (cxa_thread_atexit_impl.c:106)
+| ->80.00% (32B) 0x1E95C1F: std::sys::thread_local::destructors::linux_like::register (linux_like.rs:42)
+|   ->80.00% (32B) 0x1DFFE33: std::sys::thread_local::native::eager::Storage<T>::initialize (eager.rs:47)
+|     ->80.00% (32B) 0x1DFFEA3: std::sys::thread_local::native::eager::Storage<T>::get (eager.rs:36)
+|       ->80.00% (32B) 0x1E087B7: tokio::runtime::context::CONTEXT::{{constant}}::{{closure}} (mod.rs:67)
+|         ->80.00% (32B) 0x1E225FB: core::ops::function::FnOnce::call_once (function.rs:250)
+|           ->80.00% (32B) 0x1E0CCAB: std::thread::local::LocalKey<T>::try_with (local.rs:314)
+|             ->80.00% (32B) 0x1E1E0B3: tokio::runtime::context::current::try_set_current (current.rs:34)
+|               ->80.00% (32B) 0x1DCB667: tokio::runtime::handle::Handle::enter (handle.rs:89)
+|                 ->80.00% (32B) 0x1E455E7: tokio::runtime::builder::Builder::build_threaded_runtime (builder.rs:1769)
+|                   ->80.00% (32B) 0x1E448B3: tokio::runtime::builder::Builder::build (builder.rs:946)
+|                     ->80.00% (32B) 0x411F7F: opensovd_cda::main (main.rs:16)
+|                       ->80.00% (32B) 0x69CC83: core::ops::function::FnOnce::call_once (function.rs:250)
+|                         ->80.00% (32B) 0x7C075B: std::sys::backtrace::__rust_begin_short_backtrace (backtrace.rs:152)
+|                           ->80.00% (32B) 0x5F5EA7: std::rt::lang_start::{{closure}} (rt.rs:199)
+|                             ->80.00% (32B) 0x1E81F43: call_once<(), (dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (function.rs:284)
+|                               ->80.00% (32B) 0x1E81F43: do_call<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panicking.rs:589)
+|                                 ->80.00% (32B) 0x1E81F43: try<i32, &(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (panicking.rs:552)
+|                                   ->80.00% (32B) 0x1E81F43: catch_unwind<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panic.rs:359)
+|                                     ->80.00% (32B) 0x1E81F43: {closure
+|                                       ->80.00% (32B) 0x1E81F43: do_call<std::rt::lang_start_internal::{closure_env
+|                                         ->80.00% (32B) 0x1E81F43: try<isize, std::rt::lang_start_internal::{closure_env
+|                                           ->80.00% (32B) 0x1E81F43: catch_unwind<std::rt::lang_start_internal::{closure_env
+|                                             ->80.00% (32B) 0x1E81F43: std::rt::lang_start_internal (rt.rs:164)
+|                                               ->80.00% (32B) 0x5F5E7B: std::rt::lang_start (rt.rs:198)
+|                                                 ->80.00% (32B) 0x412063: main (in /app/opensovd-cda)
+|                                                   
+->00.00% (0B) in 7+ places, all below ms_print's threshold (01.00%)
+
+--------------------------------------------------------------------------------
+  n       time(ms)         total(B)   useful-heap(B) extra-heap(B)    stacks(B)
+--------------------------------------------------------------------------------
+  4          1,665               80               64            16            0
+  5          1,677              392              368            24            0
+  6          1,682              704              672            32            0
+  7          1,687            3,864            3,744           120            0
+  8          1,827            3,904            3,776           128            0
+  9          1,828            3,944            3,808           136            0
+ 10          1,837            3,984            3,840           144            0
+ 11          1,839            4,824            4,512           312            0
+ 12          2,117           37,648           37,328           320            0
+ 13          2,123           37,648           37,328           320            0
+ 14          2,124            4,824            4,512           312            0
+ 15          2,150            4,864            4,544           320            0
+ 16          2,162            4,904            4,576           328            0
+ 17          2,165            4,944            4,608           336            0
+ 18          2,185            4,984            4,640           344            0
+ 19          2,357           37,808           37,456           352            0
+99.07% (37,456B) (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+->86.80% (32,816B) 0x519EE0B: __alloc_dir (opendir.c:115)
+| ->86.80% (32,816B) 0x519EE0B: opendir_tail (opendir.c:63)
+|   ->86.80% (32,816B) 0x1E8E99B: {closure
+|     ->86.80% (32,816B) 0x1E8E99B: run_with_cstr_stack<*mut libc::unix::DIR> (small_c_string.rs:48)
+|       ->86.80% (32,816B) 0x1E8E99B: run_with_cstr<*mut libc::unix::DIR> (small_c_string.rs:28)
+|         ->86.80% (32,816B) 0x1E8E99B: run_path_with_cstr<*mut libc::unix::DIR> (small_c_string.rs:18)
+|           ->86.80% (32,816B) 0x1E8E99B: readdir (unix.rs:1823)
+|             ->86.80% (32,816B) 0x1E8E99B: std::sys::fs::read_dir (mod.rs:56)
+|               ->86.80% (32,816B) 0xD456B3: std::fs::read_dir (fs.rs:3021)
+|                 ->86.80% (32,816B) 0xD4ABD3: cda_storage::recovery::has_backup_files (recovery.rs:225)
+|                 | ->86.80% (32,816B) 0xD47BD3: cda_storage::recovery::recover (recovery.rs:104)
+|                 |   ->86.80% (32,816B) 0x62444F: cda_storage::local_storage::LocalStorage::new (local_storage.rs:71)
+|                 |     ->86.80% (32,816B) 0x3FA7EF: opensovd_cda_lib::mdd::load_mdd_paths_from_storage::{{closure}} (mdd.rs:251)
+|                 |     | ->86.80% (32,816B) 0x3F767B: opensovd_cda_lib::mdd::resolve_mdd_paths::{{closure}} (mdd.rs:220)
+|                 |     |   ->86.80% (32,816B) 0x8D37C7: opensovd_cda_lib::load_vehicle_data::{{closure}} (lib.rs:685)
+|                 |     |     ->86.80% (32,816B) 0x8D864F: opensovd_cda_lib::setup_vehicle_and_routes::{{closure}} (lib.rs:559)
+|                 |     |       ->86.80% (32,816B) 0x8D6AE7: opensovd_cda_lib::run_with_config_ext::{{closure}} (lib.rs:506)
+|                 |     |         ->86.80% (32,816B) 0x8D28AF: opensovd_cda_lib::run_with_ext::{{closure}}::{{closure}} (lib.rs:387)
+|                 |     |           ->86.80% (32,816B) 0x8D1DAF: opensovd_cda_lib::run_with_ext::{{closure}} (lib.rs:336)
+|                 |     |             ->86.80% (32,816B) 0x6603CB: <core::pin::Pin<P> as core::future::future::Future>::poll (future.rs:124)
+|                 |     |               ->86.80% (32,816B) 0x8DE7CF: opensovd_cda_lib::run::{{closure}} (lib.rs:401)
+|                 |     |                 ->86.80% (32,816B) 0x65FE03: <core::pin::Pin<P> as core::future::future::Future>::poll (future.rs:124)
+|                 |     |                   ->86.80% (32,816B) 0x8D14A7: opensovd_cda_lib::run_from_cli::{{closure}} (lib.rs:333)
+|                 |     |                     ->86.80% (32,816B) 0x8A4BA3: opensovd_cda::main::{{closure}} (main.rs:16)
+|                 |     |                       ->86.80% (32,816B) 0x98D223: tokio::runtime::park::CachedParkThread::block_on::{{closure}} (park.rs:285)
+|                 |     |                         ->86.80% (32,816B) 0x98CD2F: with_budget<core::task::poll::Poll<core::result::Result<(), opensovd_cda_lib::AppError>>, tokio::runtime::park::{impl
+|                 |     |                           ->86.80% (32,816B) 0x98CD2F: budget<core::task::poll::Poll<core::result::Result<(), opensovd_cda_lib::AppError>>, tokio::runtime::park::{impl
+|                 |     |                             ->86.80% (32,816B) 0x98CD2F: tokio::runtime::park::CachedParkThread::block_on (park.rs:285)
+|                 |     |                               ->86.80% (32,816B) 0x96C9CF: tokio::runtime::context::blocking::BlockingRegionGuard::block_on (blocking.rs:66)
+|                 |     |                                 ->86.80% (32,816B) 0x813D7B: tokio::runtime::scheduler::multi_thread::MultiThread::block_on::{{closure}} (mod.rs:87)
+|                 |     |                                   ->86.80% (32,816B) 0x54156B: tokio::runtime::context::runtime::enter_runtime (runtime.rs:65)
+|                 |     |                                     ->86.80% (32,816B) 0x813D33: tokio::runtime::scheduler::multi_thread::MultiThread::block_on (mod.rs:86)
+|                 |     |                                       ->86.80% (32,816B) 0x4D3DC3: tokio::runtime::runtime::Runtime::block_on_inner (runtime.rs:370)
+|                 |     |                                         ->86.80% (32,816B) 0x4D40B7: tokio::runtime::runtime::Runtime::block_on (runtime.rs:342)
+|                 |     |                                           ->86.80% (32,816B) 0x411FD7: opensovd_cda::main (main.rs:16)
+|                 |     |                                             ->86.80% (32,816B) 0x69CC83: core::ops::function::FnOnce::call_once (function.rs:250)
+|                 |     |                                               ->86.80% (32,816B) 0x7C075B: std::sys::backtrace::__rust_begin_short_backtrace (backtrace.rs:152)
+|                 |     |                                                 ->86.80% (32,816B) 0x5F5EA7: std::rt::lang_start::{{closure}} (rt.rs:199)
+|                 |     |                                                   
+|                 |     ->00.00% (0B) in 1+ places, all below ms_print's threshold (01.00%)
+|                 |     
+|                 ->00.00% (0B) in 1+ places, all below ms_print's threshold (01.00%)
+|                 
+->09.65% (3,648B) 0x400F397: calloc (rtld-malloc.h:44)
+| ->09.65% (3,648B) 0x400F397: allocate_dtv (dl-tls.c:462)
+|   ->09.65% (3,648B) 0x400FEC3: _dl_allocate_tls (dl-tls.c:712)
+|     ->09.65% (3,648B) 0x5166947: allocate_stack (allocatestack.c:431)
+|       ->09.65% (3,648B) 0x5166947: pthread_create@@GLIBC_2.34 (pthread_create.c:660)
+|         ->09.65% (3,648B) 0x1E91FEF: std::sys::pal::unix::thread::Thread::new (thread.rs:76)
+|           ->09.65% (3,648B) 0x1E38EF7: std::thread::Builder::spawn_unchecked_ (mod.rs:598)
+|             ->09.65% (3,648B) 0x1E388E7: std::thread::Builder::spawn_unchecked (mod.rs:467)
+|               ->09.65% (3,648B) 0x1E39853: std::thread::Builder::spawn (mod.rs:399)
+|                 ->09.65% (3,648B) 0x1DD9B0B: tokio::runtime::blocking::pool::Spawner::spawn_thread (pool.rs:471)
+|                   ->09.65% (3,648B) 0x1DD95DB: tokio::runtime::blocking::pool::Spawner::spawn_task (pool.rs:421)
+|                     ->09.65% (3,648B) 0x1DD8513: tokio::runtime::blocking::pool::Spawner::spawn_blocking_inner (pool.rs:389)
+|                       ->09.65% (3,648B) 0x1DD6FA3: tokio::runtime::blocking::pool::Spawner::spawn_blocking (pool.rs:312)
+|                         ->09.65% (3,648B) 0x1DCB7E3: tokio::runtime::handle::Handle::spawn_blocking (handle.rs:239)
+|                           ->09.65% (3,648B) 0x1DD6257: tokio::runtime::blocking::pool::spawn_blocking (pool.rs:185)
+|                             ->09.65% (3,648B) 0x1DFA7D7: tokio::runtime::scheduler::multi_thread::worker::Launch::launch (worker.rs:457)
+|                               ->09.65% (3,648B) 0x1E45623: tokio::runtime::builder::Builder::build_threaded_runtime (builder.rs:1770)
+|                                 ->09.65% (3,648B) 0x1E448B3: tokio::runtime::builder::Builder::build (builder.rs:946)
+|                                   ->09.65% (3,648B) 0x411F7F: opensovd_cda::main (main.rs:16)
+|                                     ->09.65% (3,648B) 0x69CC83: core::ops::function::FnOnce::call_once (function.rs:250)
+|                                       ->09.65% (3,648B) 0x7C075B: std::sys::backtrace::__rust_begin_short_backtrace (backtrace.rs:152)
+|                                         ->09.65% (3,648B) 0x5F5EA7: std::rt::lang_start::{{closure}} (rt.rs:199)
+|                                           ->09.65% (3,648B) 0x1E81F43: call_once<(), (dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (function.rs:284)
+|                                             ->09.65% (3,648B) 0x1E81F43: do_call<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panicking.rs:589)
+|                                               ->09.65% (3,648B) 0x1E81F43: try<i32, &(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (panicking.rs:552)
+|                                                 ->09.65% (3,648B) 0x1E81F43: catch_unwind<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panic.rs:359)
+|                                                   ->09.65% (3,648B) 0x1E81F43: {closure
+|                                                     ->09.65% (3,648B) 0x1E81F43: do_call<std::rt::lang_start_internal::{closure_env
+|                                                       ->09.65% (3,648B) 0x1E81F43: try<isize, std::rt::lang_start_internal::{closure_env
+|                                                         ->09.65% (3,648B) 0x1E81F43: catch_unwind<std::rt::lang_start_internal::{closure_env
+|                                                           ->09.65% (3,648B) 0x1E81F43: std::rt::lang_start_internal (rt.rs:164)
+|                                                             ->09.65% (3,648B) 0x5F5E7B: std::rt::lang_start (rt.rs:198)
+|                                                               ->09.65% (3,648B) 0x412063: main (in /app/opensovd-cda)
+|                                                                 
+->02.62% (992B) 0x5118F83: __cxa_thread_atexit_impl (cxa_thread_atexit_impl.c:106)
+| ->02.62% (992B) 0x1E95C1F: std::sys::thread_local::destructors::linux_like::register (linux_like.rs:42)
+|   ->01.10% (416B) 0x1DFFE33: std::sys::thread_local::native::eager::Storage<T>::initialize (eager.rs:47)
+|   | ->01.10% (416B) 0x1DFFEA3: std::sys::thread_local::native::eager::Storage<T>::get (eager.rs:36)
+|   |   ->01.10% (416B) 0x1E087B7: tokio::runtime::context::CONTEXT::{{constant}}::{{closure}} (mod.rs:67)
+|   |     ->01.10% (416B) 0x1E225FB: core::ops::function::FnOnce::call_once (function.rs:250)
+|   |       ->01.10% (416B) 0x1E0CCAB: std::thread::local::LocalKey<T>::try_with (local.rs:314)
+|   |         ->01.10% (416B) 0x1E1E0B3: tokio::runtime::context::current::try_set_current (current.rs:34)
+|   |           ->01.10% (416B) 0x1DCB667: tokio::runtime::handle::Handle::enter (handle.rs:89)
+|   |             ->01.02% (384B) 0x1DD9B6F: tokio::runtime::blocking::pool::Spawner::spawn_thread::{{closure}} (pool.rs:473)
+|   |             | ->01.02% (384B) 0x1E17B43: std::sys::backtrace::__rust_begin_short_backtrace (backtrace.rs:152)
+|   |             |   ->01.02% (384B) 0x1E397AF: std::thread::Builder::spawn_unchecked_::{{closure}}::{{closure}} (mod.rs:559)
+|   |             |     ->01.02% (384B) 0x1E37ED7: <core::panic::unwind_safe::AssertUnwindSafe<F> as core::ops::function::FnOnce<()>>::call_once (unwind_safe.rs:272)
+|   |             |       ->01.02% (384B) 0x1DE9BEF: std::panicking::try::do_call (panicking.rs:589)
+|   |             |         ->01.02% (384B) 0x1E3E5D7: __rust_try (in /app/opensovd-cda)
+|   |             |           ->01.02% (384B) 0x1E39323: try<(), core::panic::unwind_safe::AssertUnwindSafe<std::thread::{impl
+|   |             |             ->01.02% (384B) 0x1E39323: catch_unwind<core::panic::unwind_safe::AssertUnwindSafe<std::thread::{impl
+|   |             |               ->01.02% (384B) 0x1E39323: std::thread::Builder::spawn_unchecked_::{{closure}} (mod.rs:557)
+|   |             |                 ->01.02% (384B) 0x1E22247: core::ops::function::FnOnce::call_once{{vtable.shim}} (function.rs:250)
+|   |             |                   ->01.02% (384B) 0x1E92167: call_once<(), dyn core::ops::function::FnOnce<(), Output=()>, alloc::alloc::Global> (boxed.rs:1966)
+|   |             |                     ->01.02% (384B) 0x1E92167: call_once<(), alloc::boxed::Box<dyn core::ops::function::FnOnce<(), Output=()>, alloc::alloc::Global>, alloc::alloc::Global> (boxed.rs:1966)
+|   |             |                       ->01.02% (384B) 0x1E92167: std::sys::pal::unix::thread::Thread::new::thread_start (thread.rs:97)
+|   |             |                         ->01.02% (384B) 0x5165F37: start_thread (pthread_create.c:448)
+|   |             |                           ->01.02% (384B) 0x51CDC2B: thread_start (clone.S:82)
+|   |             |                             
+|   |             ->00.08% (32B) in 1+ places, all below ms_print's threshold (01.00%)
+|   |             
+|   ->01.02% (384B) 0x1E8290F: initialize<core::cell::Cell<std::thread::spawnhook::SpawnHooks>> (eager.rs:47)
+|   | ->01.02% (384B) 0x1E8290F: get<core::cell::Cell<std::thread::spawnhook::SpawnHooks>> (eager.rs:36)
+|   |   ->01.02% (384B) 0x1E8290F: {closure
+|   |     ->01.02% (384B) 0x1E8290F: call_once<std::thread::spawnhook::SPAWN_HOOKS::{constant
+|   |       ->01.02% (384B) 0x1E8290F: initialize_with<core::cell::Cell<std::thread::spawnhook::SpawnHooks>, std::thread::local::{impl
+|   |         ->01.02% (384B) 0x1E8290F: set<std::thread::spawnhook::SpawnHooks> (local.rs:376)
+|   |           ->01.02% (384B) 0x1E8290F: std::thread::spawnhook::ChildSpawnHooks::run (spawnhook.rs:148)
+|   |             ->01.02% (384B) 0x1E397FB: std::thread::Builder::spawn_unchecked_::{{closure}}::{{closure}}::{{closure}} (mod.rs:558)
+|   |               ->01.02% (384B) 0x1E17B5B: std::sys::backtrace::__rust_begin_short_backtrace (backtrace.rs:152)
+|   |                 ->01.02% (384B) 0x1E3976F: std::thread::Builder::spawn_unchecked_::{{closure}}::{{closure}} (mod.rs:558)
+|   |                   ->01.02% (384B) 0x1E37ED7: <core::panic::unwind_safe::AssertUnwindSafe<F> as core::ops::function::FnOnce<()>>::call_once (unwind_safe.rs:272)
+|   |                     ->01.02% (384B) 0x1DE9BEF: std::panicking::try::do_call (panicking.rs:589)
+|   |                       ->01.02% (384B) 0x1E3E5D7: __rust_try (in /app/opensovd-cda)
+|   |                         ->01.02% (384B) 0x1E39323: try<(), core::panic::unwind_safe::AssertUnwindSafe<std::thread::{impl
+|   |                           ->01.02% (384B) 0x1E39323: catch_unwind<core::panic::unwind_safe::AssertUnwindSafe<std::thread::{impl
+|   |                             ->01.02% (384B) 0x1E39323: std::thread::Builder::spawn_unchecked_::{{closure}} (mod.rs:557)
+|   |                               ->01.02% (384B) 0x1E22247: core::ops::function::FnOnce::call_once{{vtable.shim}} (function.rs:250)
+|   |                                 ->01.02% (384B) 0x1E92167: call_once<(), dyn core::ops::function::FnOnce<(), Output=()>, alloc::alloc::Global> (boxed.rs:1966)
+|   |                                   ->01.02% (384B) 0x1E92167: call_once<(), alloc::boxed::Box<dyn core::ops::function::FnOnce<(), Output=()>, alloc::alloc::Global>, alloc::alloc::Global> (boxed.rs:1966)
+|   |                                     ->01.02% (384B) 0x1E92167: std::sys::pal::unix::thread::Thread::new::thread_start (thread.rs:97)
+|   |                                       ->01.02% (384B) 0x5165F37: start_thread (pthread_create.c:448)
+|   |                                         ->01.02% (384B) 0x51CDC2B: thread_start (clone.S:82)
+|   |                                           
+|   ->00.51% (192B) in 1+ places, all below ms_print's threshold (01.00%)
+|   
+->00.00% (0B) in 1+ places, all below ms_print's threshold (01.00%)
+
+--------------------------------------------------------------------------------
+  n       time(ms)         total(B)   useful-heap(B) extra-heap(B)    stacks(B)
+--------------------------------------------------------------------------------
+ 20          2,388           70,632           70,272           360            0
+ 21          2,391           37,808           37,456           352            0
+ 22          2,397            4,984            4,640           344            0
+ 23          2,427            5,088            4,736           352            0
+ 24          2,430        8,430,624        8,426,200         4,424            0
+ 25          2,449        8,430,624        8,426,200         4,424            0
+99.95% (8,426,200B) (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+->99.89% (8,421,560B) 0x1B882AB: lzma_alloc (common.c:50)
+| ->99.50% (8,388,608B) 0x1B89243: lzma_lz_decoder_init (lz_decoder.c:265)
+| | ->99.50% (8,388,608B) 0x1B92AA3: lzma_lzma_decoder_init (lzma_decoder.c:994)
+| |   ->99.50% (8,388,608B) 0x1B8839F: lzma_next_filter_init (common.c:122)
+| |     ->99.50% (8,388,608B) 0x1B87EAB: alone_decode (alone_decoder.c:142)
+| |       ->99.50% (8,388,608B) 0x1B8890B: lzma_code (common.c:287)
+| |         ->99.50% (8,388,608B) 0x1B874B3: xz2::stream::Stream::process (stream.rs:381)
+| |           ->99.50% (8,388,608B) 0x1B6CAA3: <xz2::bufread::XzDecoder<R> as std::io::Read>::read (bufread.rs:212)
+| |             ->99.50% (8,388,608B) 0x1B81B07: std::io::default_read_to_end::small_probe_read (mod.rs:430)
+| |               ->99.50% (8,388,608B) 0x1B8204F: std::io::default_read_to_end (mod.rs:445)
+| |                 ->99.50% (8,388,608B) 0x1B6C907: std::io::Read::read_to_end (mod.rs:923)
+| |                   ->99.50% (8,388,608B) 0x1AD0B83: cda_database::mdd_data::decompress_chunk_data (mod.rs:86)
+| |                     ->99.50% (8,388,608B) 0x1AE87D7: cda_database::mdd_data::load_proto_data::{{closure}}::{{closure}} (mod.rs:281)
+| |                       ->99.50% (8,388,608B) 0x1B7A8E7: core::iter::adapters::map::map_try_fold::{{closure}} (map.rs:95)
+| |                         ->99.50% (8,388,608B) 0x1B7DAA7: core::iter::adapters::filter::filter_try_fold::{{closure}} (filter.rs:86)
+| |                           ->99.50% (8,388,608B) 0x1B35CA7: core::iter::traits::iterator::Iterator::try_fold (iterator.rs:2400)
+| |                             ->99.50% (8,388,608B) 0x1B7D997: <core::iter::adapters::filter::Filter<I,P> as core::iter::traits::iterator::Iterator>::try_fold (filter.rs:151)
+| |                               ->99.50% (8,388,608B) 0x1B79CF3: <core::iter::adapters::map::Map<I,F> as core::iter::traits::iterator::Iterator>::try_fold (map.rs:121)
+| |                                 ->99.50% (8,388,608B) 0x1B7B6DF: <core::iter::adapters::filter_map::FilterMap<I,F> as core::iter::traits::iterator::Iterator>::try_fold (filter_map.rs:138)
+| |                                   ->99.50% (8,388,608B) 0x1B3978B: <core::iter::adapters::GenericShunt<I,R> as core::iter::traits::iterator::Iterator>::try_fold (mod.rs:191)
+| |                                     ->99.50% (8,388,608B) 0x1B395C3: try_for_each<core::iter::adapters::GenericShunt<core::iter::adapters::filter_map::FilterMap<core::iter::adapters::map::Map<core::iter::adapters::filter::Filter<core::slice::iter::Iter<cda_database::proto::fileformat::Chunk>, cda_database::mdd_data::load_proto_data::{closure
+| |                                       ->99.50% (8,388,608B) 0x1B395C3: <core::iter::adapters::GenericShunt<I,R> as core::iter::traits::iterator::Iterator>::next (mod.rs:174)
+| |                                         ->99.50% (8,388,608B) 0x1AC2DCB: <alloc::vec::Vec<T> as alloc::vec::spec_from_iter_nested::SpecFromIterNested<T,I>>::from_iter (spec_from_iter_nested.rs:25)
+| |                                           ->99.50% (8,388,608B) 0x1AC6A33: <alloc::vec::Vec<T> as alloc::vec::spec_from_iter::SpecFromIter<T,I>>::from_iter (spec_from_iter.rs:34)
+| |                                             ->99.50% (8,388,608B) 0x1AC65BF: <alloc::vec::Vec<T> as core::iter::traits::collect::FromIterator<T>>::from_iter (mod.rs:3438)
+| |                                               ->99.50% (8,388,608B) 0x1B3A2CB: core::iter::traits::iterator::Iterator::collect (iterator.rs:2001)
+| |                                                 ->99.50% (8,388,608B) 0x1AC6B57: <core::result::Result<V,E> as core::iter::traits::collect::FromIterator<core::result::Result<A,E>>>::from_iter::{{closure}} (result.rs:2021)
+| |                                                   ->99.50% (8,388,608B) 0x1B3A7EF: core::iter::adapters::try_process (mod.rs:160)
+| |                                                     ->99.50% (8,388,608B) 0x1AC6A7F: <core::result::Result<V,E> as core::iter::traits::collect::FromIterator<core::result::Result<A,E>>>::from_iter (result.rs:2021)
+| |                                                       ->99.50% (8,388,608B) 0x1B7BC2B: core::iter::traits::iterator::Iterator::collect (iterator.rs:2001)
+| |                                                         ->99.50% (8,388,608B) 0x1AE8483: cda_database::mdd_data::load_proto_data::{{closure}} (mod.rs:265)
+| |                                                           
+| ->00.39% (32,952B) in 1+ places, all below ms_print's threshold (01.00%)
+| 
+->00.06% (4,640B) in 1+ places, all below ms_print's threshold (01.00%)
+
+--------------------------------------------------------------------------------
+  n       time(ms)         total(B)   useful-heap(B) extra-heap(B)    stacks(B)
+--------------------------------------------------------------------------------
+ 26          2,449            4,984            4,640           344            0
+ 27          2,608            5,088            4,736           352            0
+ 28          2,610            4,984            4,640           344            0
+ 29          2,682            5,088            4,736           352            0
+ 30          2,684            4,984            4,640           344            0
+ 31          2,753            5,088            4,736           352            0
+ 32          2,755            4,984            4,640           344            0
+ 33          2,867            5,088            4,736           352            0
+ 34          2,869            4,984            4,640           344            0
+ 35          2,953            5,088            4,736           352            0
+ 36          2,955            4,984            4,640           344            0
+ 37          2,969            5,088            4,736           352            0
+ 38          2,970            4,984            4,640           344            0
+ 39          4,104            5,024            4,672           352            0
+ 40          4,110            5,104            4,736           368            0
+ 41          4,116            5,224            4,832           392            0
+ 42          5,252           38,048           37,648           400            0
+ 43          5,252           70,872           70,464           408            0
+ 44          5,274           70,912           70,496           416            0
+ 45          5,275           70,952           70,528           424            0
+ 46          5,337           38,128           37,712           416            0
+ 47          5,337            5,304            4,896           408            0
+ 48         12,719            5,264            4,864           400            0
+ 49         12,720            5,184            4,800           384            0
+ 50         12,720            5,144            4,768           376            0
+ 51         12,720            5,104            4,736           368            0
+ 52         12,721            5,064            4,704           360            0
+ 53         12,722            5,024            4,672           352            0
+ 54         12,722            4,984            4,640           344            0
+ 55         12,722            4,944            4,608           336            0
+93.20% (4,608B) (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+->73.79% (3,648B) 0x400F397: calloc (rtld-malloc.h:44)
+| ->73.79% (3,648B) 0x400F397: allocate_dtv (dl-tls.c:462)
+|   ->73.79% (3,648B) 0x400FEC3: _dl_allocate_tls (dl-tls.c:712)
+|     ->73.79% (3,648B) 0x5166947: allocate_stack (allocatestack.c:431)
+|       ->73.79% (3,648B) 0x5166947: pthread_create@@GLIBC_2.34 (pthread_create.c:660)
+|         ->73.79% (3,648B) 0x1E91FEF: std::sys::pal::unix::thread::Thread::new (thread.rs:76)
+|           ->73.79% (3,648B) 0x1E38EF7: std::thread::Builder::spawn_unchecked_ (mod.rs:598)
+|             ->73.79% (3,648B) 0x1E388E7: std::thread::Builder::spawn_unchecked (mod.rs:467)
+|               ->73.79% (3,648B) 0x1E39853: std::thread::Builder::spawn (mod.rs:399)
+|                 ->73.79% (3,648B) 0x1DD9B0B: tokio::runtime::blocking::pool::Spawner::spawn_thread (pool.rs:471)
+|                   ->73.79% (3,648B) 0x1DD95DB: tokio::runtime::blocking::pool::Spawner::spawn_task (pool.rs:421)
+|                     ->73.79% (3,648B) 0x1DD8513: tokio::runtime::blocking::pool::Spawner::spawn_blocking_inner (pool.rs:389)
+|                       ->73.79% (3,648B) 0x1DD6FA3: tokio::runtime::blocking::pool::Spawner::spawn_blocking (pool.rs:312)
+|                         ->73.79% (3,648B) 0x1DCB7E3: tokio::runtime::handle::Handle::spawn_blocking (handle.rs:239)
+|                           ->73.79% (3,648B) 0x1DD6257: tokio::runtime::blocking::pool::spawn_blocking (pool.rs:185)
+|                             ->73.79% (3,648B) 0x1DFA7D7: tokio::runtime::scheduler::multi_thread::worker::Launch::launch (worker.rs:457)
+|                               ->73.79% (3,648B) 0x1E45623: tokio::runtime::builder::Builder::build_threaded_runtime (builder.rs:1770)
+|                                 ->73.79% (3,648B) 0x1E448B3: tokio::runtime::builder::Builder::build (builder.rs:946)
+|                                   ->73.79% (3,648B) 0x411F7F: opensovd_cda::main (main.rs:16)
+|                                     ->73.79% (3,648B) 0x69CC83: core::ops::function::FnOnce::call_once (function.rs:250)
+|                                       ->73.79% (3,648B) 0x7C075B: std::sys::backtrace::__rust_begin_short_backtrace (backtrace.rs:152)
+|                                         ->73.79% (3,648B) 0x5F5EA7: std::rt::lang_start::{{closure}} (rt.rs:199)
+|                                           ->73.79% (3,648B) 0x1E81F43: call_once<(), (dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (function.rs:284)
+|                                             ->73.79% (3,648B) 0x1E81F43: do_call<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panicking.rs:589)
+|                                               ->73.79% (3,648B) 0x1E81F43: try<i32, &(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (panicking.rs:552)
+|                                                 ->73.79% (3,648B) 0x1E81F43: catch_unwind<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panic.rs:359)
+|                                                   ->73.79% (3,648B) 0x1E81F43: {closure
+|                                                     ->73.79% (3,648B) 0x1E81F43: do_call<std::rt::lang_start_internal::{closure_env
+|                                                       ->73.79% (3,648B) 0x1E81F43: try<isize, std::rt::lang_start_internal::{closure_env
+|                                                         ->73.79% (3,648B) 0x1E81F43: catch_unwind<std::rt::lang_start_internal::{closure_env
+|                                                           ->73.79% (3,648B) 0x1E81F43: std::rt::lang_start_internal (rt.rs:164)
+|                                                             ->73.79% (3,648B) 0x5F5E7B: std::rt::lang_start (rt.rs:198)
+|                                                               ->73.79% (3,648B) 0x412063: main (in /app/opensovd-cda)
+|                                                                 
+->19.42% (960B) 0x5118F83: __cxa_thread_atexit_impl (cxa_thread_atexit_impl.c:106)
+| ->19.42% (960B) 0x1E95C1F: std::sys::thread_local::destructors::linux_like::register (linux_like.rs:42)
+|   ->06.47% (320B) 0x1DFFE33: std::sys::thread_local::native::eager::Storage<T>::initialize (eager.rs:47)
+|   | ->06.47% (320B) 0x1DFFEA3: std::sys::thread_local::native::eager::Storage<T>::get (eager.rs:36)
+|   |   ->06.47% (320B) 0x1E087B7: tokio::runtime::context::CONTEXT::{{constant}}::{{closure}} (mod.rs:67)
+|   |     ->06.47% (320B) 0x1E225FB: core::ops::function::FnOnce::call_once (function.rs:250)
+|   |       ->06.47% (320B) 0x1E0CCAB: std::thread::local::LocalKey<T>::try_with (local.rs:314)
+|   |         ->06.47% (320B) 0x1E1E0B3: tokio::runtime::context::current::try_set_current (current.rs:34)
+|   |           ->06.47% (320B) 0x1DCB667: tokio::runtime::handle::Handle::enter (handle.rs:89)
+|   |             ->05.83% (288B) 0x1DD9B6F: tokio::runtime::blocking::pool::Spawner::spawn_thread::{{closure}} (pool.rs:473)
+|   |             | ->05.83% (288B) 0x1E17B43: std::sys::backtrace::__rust_begin_short_backtrace (backtrace.rs:152)
+|   |             |   ->05.83% (288B) 0x1E397AF: std::thread::Builder::spawn_unchecked_::{{closure}}::{{closure}} (mod.rs:559)
+|   |             |     ->05.83% (288B) 0x1E37ED7: <core::panic::unwind_safe::AssertUnwindSafe<F> as core::ops::function::FnOnce<()>>::call_once (unwind_safe.rs:272)
+|   |             |       ->05.83% (288B) 0x1DE9BEF: std::panicking::try::do_call (panicking.rs:589)
+|   |             |         ->05.83% (288B) 0x1E3E5D7: __rust_try (in /app/opensovd-cda)
+|   |             |           ->05.83% (288B) 0x1E39323: try<(), core::panic::unwind_safe::AssertUnwindSafe<std::thread::{impl
+|   |             |             ->05.83% (288B) 0x1E39323: catch_unwind<core::panic::unwind_safe::AssertUnwindSafe<std::thread::{impl
+|   |             |               ->05.83% (288B) 0x1E39323: std::thread::Builder::spawn_unchecked_::{{closure}} (mod.rs:557)
+|   |             |                 ->05.83% (288B) 0x1E22247: core::ops::function::FnOnce::call_once{{vtable.shim}} (function.rs:250)
+|   |             |                   ->05.83% (288B) 0x1E92167: call_once<(), dyn core::ops::function::FnOnce<(), Output=()>, alloc::alloc::Global> (boxed.rs:1966)
+|   |             |                     ->05.83% (288B) 0x1E92167: call_once<(), alloc::boxed::Box<dyn core::ops::function::FnOnce<(), Output=()>, alloc::alloc::Global>, alloc::alloc::Global> (boxed.rs:1966)
+|   |             |                       ->05.83% (288B) 0x1E92167: std::sys::pal::unix::thread::Thread::new::thread_start (thread.rs:97)
+|   |             |                         ->05.83% (288B) 0x5165F37: start_thread (pthread_create.c:448)
+|   |             |                           ->05.83% (288B) 0x51CDC2B: thread_start (clone.S:82)
+|   |             |                             
+|   |             ->00.65% (32B) in 1+ places, all below ms_print's threshold (01.00%)
+|   |             
+|   ->05.83% (288B) 0x1E8290F: initialize<core::cell::Cell<std::thread::spawnhook::SpawnHooks>> (eager.rs:47)
+|   | ->05.83% (288B) 0x1E8290F: get<core::cell::Cell<std::thread::spawnhook::SpawnHooks>> (eager.rs:36)
+|   |   ->05.83% (288B) 0x1E8290F: {closure
+|   |     ->05.83% (288B) 0x1E8290F: call_once<std::thread::spawnhook::SPAWN_HOOKS::{constant
+|   |       ->05.83% (288B) 0x1E8290F: initialize_with<core::cell::Cell<std::thread::spawnhook::SpawnHooks>, std::thread::local::{impl
+|   |         ->05.83% (288B) 0x1E8290F: set<std::thread::spawnhook::SpawnHooks> (local.rs:376)
+|   |           ->05.83% (288B) 0x1E8290F: std::thread::spawnhook::ChildSpawnHooks::run (spawnhook.rs:148)
+|   |             ->05.83% (288B) 0x1E397FB: std::thread::Builder::spawn_unchecked_::{{closure}}::{{closure}}::{{closure}} (mod.rs:558)
+|   |               ->05.83% (288B) 0x1E17B5B: std::sys::backtrace::__rust_begin_short_backtrace (backtrace.rs:152)
+|   |                 ->05.83% (288B) 0x1E3976F: std::thread::Builder::spawn_unchecked_::{{closure}}::{{closure}} (mod.rs:558)
+|   |                   ->05.83% (288B) 0x1E37ED7: <core::panic::unwind_safe::AssertUnwindSafe<F> as core::ops::function::FnOnce<()>>::call_once (unwind_safe.rs:272)
+|   |                     ->05.83% (288B) 0x1DE9BEF: std::panicking::try::do_call (panicking.rs:589)
+|   |                       ->05.83% (288B) 0x1E3E5D7: __rust_try (in /app/opensovd-cda)
+|   |                         ->05.83% (288B) 0x1E39323: try<(), core::panic::unwind_safe::AssertUnwindSafe<std::thread::{impl
+|   |                           ->05.83% (288B) 0x1E39323: catch_unwind<core::panic::unwind_safe::AssertUnwindSafe<std::thread::{impl
+|   |                             ->05.83% (288B) 0x1E39323: std::thread::Builder::spawn_unchecked_::{{closure}} (mod.rs:557)
+|   |                               ->05.83% (288B) 0x1E22247: core::ops::function::FnOnce::call_once{{vtable.shim}} (function.rs:250)
+|   |                                 ->05.83% (288B) 0x1E92167: call_once<(), dyn core::ops::function::FnOnce<(), Output=()>, alloc::alloc::Global> (boxed.rs:1966)
+|   |                                   ->05.83% (288B) 0x1E92167: call_once<(), alloc::boxed::Box<dyn core::ops::function::FnOnce<(), Output=()>, alloc::alloc::Global>, alloc::alloc::Global> (boxed.rs:1966)
+|   |                                     ->05.83% (288B) 0x1E92167: std::sys::pal::unix::thread::Thread::new::thread_start (thread.rs:97)
+|   |                                       ->05.83% (288B) 0x5165F37: start_thread (pthread_create.c:448)
+|   |                                         ->05.83% (288B) 0x51CDC2B: thread_start (clone.S:82)
+|   |                                           
+|   ->01.94% (96B) in 3 places, all below massif's threshold (1.00%)
+|   | 
+|   ->01.94% (96B) 0x12EE62B: <() as std::sys::thread_local::native::lazy::DestroyedState>::register_dtor (lazy.rs:17)
+|   | ->01.94% (96B) 0x12EAE03: std::sys::thread_local::native::lazy::Storage<T,D>::initialize (lazy.rs:71)
+|   |   ->01.94% (96B) 0x12EAF8B: std::sys::thread_local::native::lazy::Storage<T,D>::get_or_init (lazy.rs:56)
+|   |     ->01.94% (96B) 0x12EEB33: sharded_slab::tid::REGISTRATION::{{constant}}::{{closure}} (mod.rs:94)
+|   |       ->01.94% (96B) 0x12B4343: core::ops::function::FnOnce::call_once (function.rs:250)
+|   |         ->01.29% (64B) 0x12DAD23: std::thread::local::LocalKey<T>::try_with (local.rs:314)
+|   |         | ->01.29% (64B) 0x12B0B87: sharded_slab::tid::Tid<C>::current (tid.rs:68)
+|   |         |   ->01.29% (64B) 0x12BDF8F: sharded_slab::shard::Array<T,C>::current (shard.rs:292)
+|   |         |     ->01.29% (64B) 0x12B1757: sharded_slab::pool::Pool<T,C>::create (pool.rs:452)
+|   |         |       ->01.29% (64B) 0x12B0CD7: sharded_slab::pool::Pool<T,C>::create_with (pool.rs:656)
+|   |         |         ->01.29% (64B) 0xC366CB: <tracing_subscriber::registry::sharded::Registry as tracing_core::subscriber::Subscriber>::new_span (sharded.rs:247)
+|   |         |           ->01.29% (64B) 0xC1612F: <tracing_subscriber::layer::layered::Layered<L,S> as tracing_core::subscriber::Subscriber>::new_span (layered.rs:131)
+|   |         |             ->01.29% (64B) 0xC1618F: <tracing_subscriber::layer::layered::Layered<L,S> as tracing_core::subscriber::Subscriber>::new_span (layered.rs:131)
+|   |         |               ->01.29% (64B) 0x1D04D77: tracing_core::dispatcher::Dispatch::new_span (dispatcher.rs:556)
+|   |         |                 ->01.29% (64B) 0x1D05817: tracing::span::Span::make_with (span.rs:570)
+|   |         |                   ->01.29% (64B) 0x1D056CB: tracing::span::Span::new_with (span.rs:449)
+|   |         |                     ->01.29% (64B) 0x1D05677: tracing::span::Span::new::{{closure}} (span.rs:438)
+|   |         |                       ->01.29% (64B) 0x1D0448B: tracing_core::dispatcher::get_default (dispatcher.rs:386)
+|   |         |                         ->01.29% (64B) 0x1D05637: tracing::span::Span::new (span.rs:438)
+|   |         |                           ->01.29% (64B) in 2 places, all below massif's threshold (1.00%)
+|   |         |                             
+|   |         ->00.65% (32B) in 1+ places, all below ms_print's threshold (01.00%)
+|   |         
+|   ->01.94% (96B) 0x12F2243: std::sys::thread_local::native::eager::Storage<T>::initialize (eager.rs:47)
+|   | ->01.94% (96B) 0x12F22B3: std::sys::thread_local::native::eager::Storage<T>::get (eager.rs:36)
+|   |   ->01.94% (96B) 0x12F5943: thread_local::thread_id::THREAD_GUARD::{{constant}}::{{closure}} (mod.rs:67)
+|   |     ->01.94% (96B) 0x12F2BA7: core::ops::function::FnOnce::call_once (function.rs:250)
+|   |       ->01.94% (96B) 0x12F2783: std::thread::local::LocalKey<T>::try_with (local.rs:314)
+|   |         ->01.94% (96B) 0x12F266F: std::thread::local::LocalKey<T>::with (local.rs:279)
+|   |           ->01.94% (96B) 0x12F5877: thread_local::thread_id::get_slow (thread_id.rs:173)
+|   |             ->01.94% (96B) 0x12C3BBF: thread_local::thread_id::get::{{closure}} (thread_id.rs:163)
+|   |               ->01.94% (96B) 0x12DB01B: std::thread::local::LocalKey<T>::try_with (local.rs:315)
+|   |                 ->01.94% (96B) 0x12DAB73: std::thread::local::LocalKey<T>::with (local.rs:279)
+|   |                   ->01.94% (96B) 0x12C3B53: thread_local::thread_id::get (thread_id.rs:159)
+|   |                     ->01.29% (64B) 0x12B1EC3: thread_local::ThreadLocal<T>::get (lib.rs:185)
+|   |                     | ->01.29% (64B) 0x12E627F: <tracing_subscriber::registry::sharded::Registry as tracing_core::subscriber::Subscriber>::current_span (sharded.rs:326)
+|   |                     |   ->01.29% (64B) in 2 places, all below massif's threshold (1.00%)
+|   |                     |     
+|   |                     ->00.65% (32B) in 1+ places, all below ms_print's threshold (01.00%)
+|   |                     
+|   ->01.29% (64B) 0x12E2C57: std::sys::thread_local::native::eager::Storage<T>::initialize (eager.rs:47)
+|     ->01.29% (64B) 0x12E2CC7: std::sys::thread_local::native::eager::Storage<T>::get (eager.rs:36)
+|       ->01.29% (64B) 0x12C8D03: <tracing_subscriber::fmt::fmt_layer::Layer<S,N,E,W> as tracing_subscriber::layer::Layer<S>>::on_event::BUF::{{constant}}::{{closure}} (mod.rs:67)
+|         ->01.29% (64B) 0xBD3233: core::ops::function::FnOnce::call_once (function.rs:250)
+|           ->01.29% (64B) 0xD19BC7: std::thread::local::LocalKey<T>::try_with (local.rs:314)
+|             ->01.29% (64B) 0xD1919B: std::thread::local::LocalKey<T>::with (local.rs:279)
+|               ->01.29% (64B) 0xCC1697: <tracing_subscriber::fmt::fmt_layer::Layer<S,N,E,W> as tracing_subscriber::layer::Layer<S>>::on_event (fmt_layer.rs:1022)
+|                 ->01.29% (64B) 0xCF171F: <alloc::boxed::Box<dyn tracing_subscriber::layer::Layer<S>+core::marker::Send+core::marker::Sync> as tracing_subscriber::layer::Layer<S>>::on_event (mod.rs:1730)
+|                   ->01.29% (64B) 0xBC0ECF: <alloc::vec::Vec<L> as tracing_subscriber::layer::Layer<S>>::on_event (mod.rs:1845)
+|                     ->01.29% (64B) 0xC15F67: <tracing_subscriber::layer::layered::Layered<L,S> as tracing_core::subscriber::Subscriber>::event (layered.rs:158)
+|                       ->01.29% (64B) 0x1D12E23: tracing_core::dispatcher::Dispatch::event (dispatcher.rs:610)
+|                         ->01.29% (64B) 0x1D0DE8F: tracing_core::event::Event::dispatch::{{closure}} (event.rs:35)
+|                           ->01.29% (64B) 0x1D1264F: tracing_core::dispatcher::get_default (dispatcher.rs:386)
+|                             ->01.29% (64B) 0x1D0DE5B: tracing_core::event::Event::dispatch (event.rs:34)
+|                               ->01.29% (64B) in 2 places, all below massif's threshold (1.00%)
+|                                 
+->00.00% (0B) in 1+ places, all below ms_print's threshold (01.00%)
+
+--------------------------------------------------------------------------------
+  n       time(ms)         total(B)   useful-heap(B) extra-heap(B)    stacks(B)
+--------------------------------------------------------------------------------
+ 56         12,722            4,904            4,576           328            0
+ 57         12,722            4,864            4,544           320            0
+ 58         12,722            4,824            4,512           312            0
+ 59         12,723            4,784            4,480           304            0
+ 60         12,723            4,744            4,448           296            0
+ 61         12,723            4,704            4,416           288            0
+ 62         12,725            4,664            4,384           280            0
+ 63         12,725            4,624            4,352           272            0
+ 64         12,725            4,584            4,320           264            0
+ 65         12,725            4,544            4,288           256            0
+94.37% (4,288B) (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+->80.28% (3,648B) 0x400F397: calloc (rtld-malloc.h:44)
+| ->80.28% (3,648B) 0x400F397: allocate_dtv (dl-tls.c:462)
+|   ->80.28% (3,648B) 0x400FEC3: _dl_allocate_tls (dl-tls.c:712)
+|     ->80.28% (3,648B) 0x5166947: allocate_stack (allocatestack.c:431)
+|       ->80.28% (3,648B) 0x5166947: pthread_create@@GLIBC_2.34 (pthread_create.c:660)
+|         ->80.28% (3,648B) 0x1E91FEF: std::sys::pal::unix::thread::Thread::new (thread.rs:76)
+|           ->80.28% (3,648B) 0x1E38EF7: std::thread::Builder::spawn_unchecked_ (mod.rs:598)
+|             ->80.28% (3,648B) 0x1E388E7: std::thread::Builder::spawn_unchecked (mod.rs:467)
+|               ->80.28% (3,648B) 0x1E39853: std::thread::Builder::spawn (mod.rs:399)
+|                 ->80.28% (3,648B) 0x1DD9B0B: tokio::runtime::blocking::pool::Spawner::spawn_thread (pool.rs:471)
+|                   ->80.28% (3,648B) 0x1DD95DB: tokio::runtime::blocking::pool::Spawner::spawn_task (pool.rs:421)
+|                     ->80.28% (3,648B) 0x1DD8513: tokio::runtime::blocking::pool::Spawner::spawn_blocking_inner (pool.rs:389)
+|                       ->80.28% (3,648B) 0x1DD6FA3: tokio::runtime::blocking::pool::Spawner::spawn_blocking (pool.rs:312)
+|                         ->80.28% (3,648B) 0x1DCB7E3: tokio::runtime::handle::Handle::spawn_blocking (handle.rs:239)
+|                           ->80.28% (3,648B) 0x1DD6257: tokio::runtime::blocking::pool::spawn_blocking (pool.rs:185)
+|                             ->80.28% (3,648B) 0x1DFA7D7: tokio::runtime::scheduler::multi_thread::worker::Launch::launch (worker.rs:457)
+|                               ->80.28% (3,648B) 0x1E45623: tokio::runtime::builder::Builder::build_threaded_runtime (builder.rs:1770)
+|                                 ->80.28% (3,648B) 0x1E448B3: tokio::runtime::builder::Builder::build (builder.rs:946)
+|                                   ->80.28% (3,648B) 0x411F7F: opensovd_cda::main (main.rs:16)
+|                                     ->80.28% (3,648B) 0x69CC83: core::ops::function::FnOnce::call_once (function.rs:250)
+|                                       ->80.28% (3,648B) 0x7C075B: std::sys::backtrace::__rust_begin_short_backtrace (backtrace.rs:152)
+|                                         ->80.28% (3,648B) 0x5F5EA7: std::rt::lang_start::{{closure}} (rt.rs:199)
+|                                           ->80.28% (3,648B) 0x1E81F43: call_once<(), (dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (function.rs:284)
+|                                             ->80.28% (3,648B) 0x1E81F43: do_call<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panicking.rs:589)
+|                                               ->80.28% (3,648B) 0x1E81F43: try<i32, &(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (panicking.rs:552)
+|                                                 ->80.28% (3,648B) 0x1E81F43: catch_unwind<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panic.rs:359)
+|                                                   ->80.28% (3,648B) 0x1E81F43: {closure
+|                                                     ->80.28% (3,648B) 0x1E81F43: do_call<std::rt::lang_start_internal::{closure_env
+|                                                       ->80.28% (3,648B) 0x1E81F43: try<isize, std::rt::lang_start_internal::{closure_env
+|                                                         ->80.28% (3,648B) 0x1E81F43: catch_unwind<std::rt::lang_start_internal::{closure_env
+|                                                           ->80.28% (3,648B) 0x1E81F43: std::rt::lang_start_internal (rt.rs:164)
+|                                                             ->80.28% (3,648B) 0x5F5E7B: std::rt::lang_start (rt.rs:198)
+|                                                               ->80.28% (3,648B) 0x412063: main (in /app/opensovd-cda)
+|                                                                 
+->14.08% (640B) 0x5118F83: __cxa_thread_atexit_impl (cxa_thread_atexit_impl.c:106)
+| ->14.08% (640B) 0x1E95C1F: std::sys::thread_local::destructors::linux_like::register (linux_like.rs:42)
+|   ->04.23% (192B) 0x1DFFE33: std::sys::thread_local::native::eager::Storage<T>::initialize (eager.rs:47)
+|   | ->04.23% (192B) 0x1DFFEA3: std::sys::thread_local::native::eager::Storage<T>::get (eager.rs:36)
+|   |   ->04.23% (192B) 0x1E087B7: tokio::runtime::context::CONTEXT::{{constant}}::{{closure}} (mod.rs:67)
+|   |     ->04.23% (192B) 0x1E225FB: core::ops::function::FnOnce::call_once (function.rs:250)
+|   |       ->04.23% (192B) 0x1E0CCAB: std::thread::local::LocalKey<T>::try_with (local.rs:314)
+|   |         ->04.23% (192B) 0x1E1E0B3: tokio::runtime::context::current::try_set_current (current.rs:34)
+|   |           ->04.23% (192B) 0x1DCB667: tokio::runtime::handle::Handle::enter (handle.rs:89)
+|   |             ->03.52% (160B) 0x1DD9B6F: tokio::runtime::blocking::pool::Spawner::spawn_thread::{{closure}} (pool.rs:473)
+|   |             | ->03.52% (160B) 0x1E17B43: std::sys::backtrace::__rust_begin_short_backtrace (backtrace.rs:152)
+|   |             |   ->03.52% (160B) 0x1E397AF: std::thread::Builder::spawn_unchecked_::{{closure}}::{{closure}} (mod.rs:559)
+|   |             |     ->03.52% (160B) 0x1E37ED7: <core::panic::unwind_safe::AssertUnwindSafe<F> as core::ops::function::FnOnce<()>>::call_once (unwind_safe.rs:272)
+|   |             |       ->03.52% (160B) 0x1DE9BEF: std::panicking::try::do_call (panicking.rs:589)
+|   |             |         ->03.52% (160B) 0x1E3E5D7: __rust_try (in /app/opensovd-cda)
+|   |             |           ->03.52% (160B) 0x1E39323: try<(), core::panic::unwind_safe::AssertUnwindSafe<std::thread::{impl
+|   |             |             ->03.52% (160B) 0x1E39323: catch_unwind<core::panic::unwind_safe::AssertUnwindSafe<std::thread::{impl
+|   |             |               ->03.52% (160B) 0x1E39323: std::thread::Builder::spawn_unchecked_::{{closure}} (mod.rs:557)
+|   |             |                 ->03.52% (160B) 0x1E22247: core::ops::function::FnOnce::call_once{{vtable.shim}} (function.rs:250)
+|   |             |                   ->03.52% (160B) 0x1E92167: call_once<(), dyn core::ops::function::FnOnce<(), Output=()>, alloc::alloc::Global> (boxed.rs:1966)
+|   |             |                     ->03.52% (160B) 0x1E92167: call_once<(), alloc::boxed::Box<dyn core::ops::function::FnOnce<(), Output=()>, alloc::alloc::Global>, alloc::alloc::Global> (boxed.rs:1966)
+|   |             |                       ->03.52% (160B) 0x1E92167: std::sys::pal::unix::thread::Thread::new::thread_start (thread.rs:97)
+|   |             |                         ->03.52% (160B) 0x5165F37: start_thread (pthread_create.c:448)
+|   |             |                           ->03.52% (160B) 0x51CDC2B: thread_start (clone.S:82)
+|   |             |                             
+|   |             ->00.70% (32B) in 1+ places, all below ms_print's threshold (01.00%)
+|   |             
+|   ->03.52% (160B) 0x1E8290F: initialize<core::cell::Cell<std::thread::spawnhook::SpawnHooks>> (eager.rs:47)
+|   | ->03.52% (160B) 0x1E8290F: get<core::cell::Cell<std::thread::spawnhook::SpawnHooks>> (eager.rs:36)
+|   |   ->03.52% (160B) 0x1E8290F: {closure
+|   |     ->03.52% (160B) 0x1E8290F: call_once<std::thread::spawnhook::SPAWN_HOOKS::{constant
+|   |       ->03.52% (160B) 0x1E8290F: initialize_with<core::cell::Cell<std::thread::spawnhook::SpawnHooks>, std::thread::local::{impl
+|   |         ->03.52% (160B) 0x1E8290F: set<std::thread::spawnhook::SpawnHooks> (local.rs:376)
+|   |           ->03.52% (160B) 0x1E8290F: std::thread::spawnhook::ChildSpawnHooks::run (spawnhook.rs:148)
+|   |             ->03.52% (160B) 0x1E397FB: std::thread::Builder::spawn_unchecked_::{{closure}}::{{closure}}::{{closure}} (mod.rs:558)
+|   |               ->03.52% (160B) 0x1E17B5B: std::sys::backtrace::__rust_begin_short_backtrace (backtrace.rs:152)
+|   |                 ->03.52% (160B) 0x1E3976F: std::thread::Builder::spawn_unchecked_::{{closure}}::{{closure}} (mod.rs:558)
+|   |                   ->03.52% (160B) 0x1E37ED7: <core::panic::unwind_safe::AssertUnwindSafe<F> as core::ops::function::FnOnce<()>>::call_once (unwind_safe.rs:272)
+|   |                     ->03.52% (160B) 0x1DE9BEF: std::panicking::try::do_call (panicking.rs:589)
+|   |                       ->03.52% (160B) 0x1E3E5D7: __rust_try (in /app/opensovd-cda)
+|   |                         ->03.52% (160B) 0x1E39323: try<(), core::panic::unwind_safe::AssertUnwindSafe<std::thread::{impl
+|   |                           ->03.52% (160B) 0x1E39323: catch_unwind<core::panic::unwind_safe::AssertUnwindSafe<std::thread::{impl
+|   |                             ->03.52% (160B) 0x1E39323: std::thread::Builder::spawn_unchecked_::{{closure}} (mod.rs:557)
+|   |                               ->03.52% (160B) 0x1E22247: core::ops::function::FnOnce::call_once{{vtable.shim}} (function.rs:250)
+|   |                                 ->03.52% (160B) 0x1E92167: call_once<(), dyn core::ops::function::FnOnce<(), Output=()>, alloc::alloc::Global> (boxed.rs:1966)
+|   |                                   ->03.52% (160B) 0x1E92167: call_once<(), alloc::boxed::Box<dyn core::ops::function::FnOnce<(), Output=()>, alloc::alloc::Global>, alloc::alloc::Global> (boxed.rs:1966)
+|   |                                     ->03.52% (160B) 0x1E92167: std::sys::pal::unix::thread::Thread::new::thread_start (thread.rs:97)
+|   |                                       ->03.52% (160B) 0x5165F37: start_thread (pthread_create.c:448)
+|   |                                         ->03.52% (160B) 0x51CDC2B: thread_start (clone.S:82)
+|   |                                           
+|   ->02.11% (96B) in 3 places, all below massif's threshold (1.00%)
+|   | 
+|   ->01.41% (64B) 0x12E2C57: std::sys::thread_local::native::eager::Storage<T>::initialize (eager.rs:47)
+|   | ->01.41% (64B) 0x12E2CC7: std::sys::thread_local::native::eager::Storage<T>::get (eager.rs:36)
+|   |   ->01.41% (64B) 0x12C8D03: <tracing_subscriber::fmt::fmt_layer::Layer<S,N,E,W> as tracing_subscriber::layer::Layer<S>>::on_event::BUF::{{constant}}::{{closure}} (mod.rs:67)
+|   |     ->01.41% (64B) 0xBD3233: core::ops::function::FnOnce::call_once (function.rs:250)
+|   |       ->01.41% (64B) 0xD19BC7: std::thread::local::LocalKey<T>::try_with (local.rs:314)
+|   |         ->01.41% (64B) 0xD1919B: std::thread::local::LocalKey<T>::with (local.rs:279)
+|   |           ->01.41% (64B) 0xCC1697: <tracing_subscriber::fmt::fmt_layer::Layer<S,N,E,W> as tracing_subscriber::layer::Layer<S>>::on_event (fmt_layer.rs:1022)
+|   |             ->01.41% (64B) 0xCF171F: <alloc::boxed::Box<dyn tracing_subscriber::layer::Layer<S>+core::marker::Send+core::marker::Sync> as tracing_subscriber::layer::Layer<S>>::on_event (mod.rs:1730)
+|   |               ->01.41% (64B) 0xBC0ECF: <alloc::vec::Vec<L> as tracing_subscriber::layer::Layer<S>>::on_event (mod.rs:1845)
+|   |                 ->01.41% (64B) 0xC15F67: <tracing_subscriber::layer::layered::Layered<L,S> as tracing_core::subscriber::Subscriber>::event (layered.rs:158)
+|   |                   ->01.41% (64B) 0x1D12E23: tracing_core::dispatcher::Dispatch::event (dispatcher.rs:610)
+|   |                     ->01.41% (64B) 0x1D0DE8F: tracing_core::event::Event::dispatch::{{closure}} (event.rs:35)
+|   |                       ->01.41% (64B) 0x1D1264F: tracing_core::dispatcher::get_default (dispatcher.rs:386)
+|   |                         ->01.41% (64B) 0x1D0DE5B: tracing_core::event::Event::dispatch (event.rs:34)
+|   |                           ->01.41% (64B) in 2 places, all below massif's threshold (1.00%)
+|   |                             
+|   ->01.41% (64B) 0x12EE62B: <() as std::sys::thread_local::native::lazy::DestroyedState>::register_dtor (lazy.rs:17)
+|   | ->01.41% (64B) 0x12EAE03: std::sys::thread_local::native::lazy::Storage<T,D>::initialize (lazy.rs:71)
+|   |   ->01.41% (64B) 0x12EAF8B: std::sys::thread_local::native::lazy::Storage<T,D>::get_or_init (lazy.rs:56)
+|   |     ->01.41% (64B) 0x12EEB33: sharded_slab::tid::REGISTRATION::{{constant}}::{{closure}} (mod.rs:94)
+|   |       ->01.41% (64B) 0x12B4343: core::ops::function::FnOnce::call_once (function.rs:250)
+|   |         ->01.41% (64B) 0x12DAD23: std::thread::local::LocalKey<T>::try_with (local.rs:314)
+|   |         | ->01.41% (64B) 0x12B0B87: sharded_slab::tid::Tid<C>::current (tid.rs:68)
+|   |         |   ->01.41% (64B) 0x12BDF8F: sharded_slab::shard::Array<T,C>::current (shard.rs:292)
+|   |         |     ->01.41% (64B) 0x12B1757: sharded_slab::pool::Pool<T,C>::create (pool.rs:452)
+|   |         |       ->01.41% (64B) 0x12B0CD7: sharded_slab::pool::Pool<T,C>::create_with (pool.rs:656)
+|   |         |         ->01.41% (64B) 0xC366CB: <tracing_subscriber::registry::sharded::Registry as tracing_core::subscriber::Subscriber>::new_span (sharded.rs:247)
+|   |         |           ->01.41% (64B) 0xC1612F: <tracing_subscriber::layer::layered::Layered<L,S> as tracing_core::subscriber::Subscriber>::new_span (layered.rs:131)
+|   |         |             ->01.41% (64B) 0xC1618F: <tracing_subscriber::layer::layered::Layered<L,S> as tracing_core::subscriber::Subscriber>::new_span (layered.rs:131)
+|   |         |               ->01.41% (64B) 0x1D04D77: tracing_core::dispatcher::Dispatch::new_span (dispatcher.rs:556)
+|   |         |                 ->01.41% (64B) 0x1D05817: tracing::span::Span::make_with (span.rs:570)
+|   |         |                   ->01.41% (64B) 0x1D056CB: tracing::span::Span::new_with (span.rs:449)
+|   |         |                     ->01.41% (64B) 0x1D05677: tracing::span::Span::new::{{closure}} (span.rs:438)
+|   |         |                       ->01.41% (64B) 0x1D0448B: tracing_core::dispatcher::get_default (dispatcher.rs:386)
+|   |         |                         ->01.41% (64B) 0x1D05637: tracing::span::Span::new (span.rs:438)
+|   |         |                           ->01.41% (64B) in 2 places, all below massif's threshold (1.00%)
+|   |         |                             
+|   |         ->00.00% (0B) in 1+ places, all below ms_print's threshold (01.00%)
+|   |         
+|   ->01.41% (64B) 0x12F2243: std::sys::thread_local::native::eager::Storage<T>::initialize (eager.rs:47)
+|     ->01.41% (64B) 0x12F22B3: std::sys::thread_local::native::eager::Storage<T>::get (eager.rs:36)
+|       ->01.41% (64B) 0x12F5943: thread_local::thread_id::THREAD_GUARD::{{constant}}::{{closure}} (mod.rs:67)
+|         ->01.41% (64B) 0x12F2BA7: core::ops::function::FnOnce::call_once (function.rs:250)
+|           ->01.41% (64B) 0x12F2783: std::thread::local::LocalKey<T>::try_with (local.rs:314)
+|             ->01.41% (64B) 0x12F266F: std::thread::local::LocalKey<T>::with (local.rs:279)
+|               ->01.41% (64B) 0x12F5877: thread_local::thread_id::get_slow (thread_id.rs:173)
+|                 ->01.41% (64B) 0x12C3BBF: thread_local::thread_id::get::{{closure}} (thread_id.rs:163)
+|                   ->01.41% (64B) 0x12DB01B: std::thread::local::LocalKey<T>::try_with (local.rs:315)
+|                     ->01.41% (64B) 0x12DAB73: std::thread::local::LocalKey<T>::with (local.rs:279)
+|                       ->01.41% (64B) 0x12C3B53: thread_local::thread_id::get (thread_id.rs:159)
+|                         ->01.41% (64B) 0x12B1EC3: thread_local::ThreadLocal<T>::get (lib.rs:185)
+|                         | ->01.41% (64B) 0x12E627F: <tracing_subscriber::registry::sharded::Registry as tracing_core::subscriber::Subscriber>::current_span (sharded.rs:326)
+|                         |   ->01.41% (64B) in 2 places, all below massif's threshold (1.00%)
+|                         |     
+|                         ->00.00% (0B) in 1+ places, all below ms_print's threshold (01.00%)
+|                         
+->00.00% (0B) in 1+ places, all below ms_print's threshold (01.00%)
+
+--------------------------------------------------------------------------------
+  n       time(ms)         total(B)   useful-heap(B) extra-heap(B)    stacks(B)
+--------------------------------------------------------------------------------
+ 66         12,725            4,504            4,256           248            0
+ 67         12,725            4,464            4,224           240            0
+ 68         12,728            4,424            4,192           232            0
+ 69         12,728            4,384            4,160           224            0
+ 70         12,728            4,344            4,128           216            0
+ 71         12,728            4,304            4,096           208            0
+ 72         12,728            4,264            4,064           200            0
+ 73         12,728            4,224            4,032           192            0
+ 74         12,728            4,184            4,000           184            0
+ 75         12,729            4,144            3,968           176            0
+95.75% (3,968B) (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+->88.03% (3,648B) 0x400F397: calloc (rtld-malloc.h:44)
+| ->88.03% (3,648B) 0x400F397: allocate_dtv (dl-tls.c:462)
+|   ->88.03% (3,648B) 0x400FEC3: _dl_allocate_tls (dl-tls.c:712)
+|     ->88.03% (3,648B) 0x5166947: allocate_stack (allocatestack.c:431)
+|       ->88.03% (3,648B) 0x5166947: pthread_create@@GLIBC_2.34 (pthread_create.c:660)
+|         ->88.03% (3,648B) 0x1E91FEF: std::sys::pal::unix::thread::Thread::new (thread.rs:76)
+|           ->88.03% (3,648B) 0x1E38EF7: std::thread::Builder::spawn_unchecked_ (mod.rs:598)
+|             ->88.03% (3,648B) 0x1E388E7: std::thread::Builder::spawn_unchecked (mod.rs:467)
+|               ->88.03% (3,648B) 0x1E39853: std::thread::Builder::spawn (mod.rs:399)
+|                 ->88.03% (3,648B) 0x1DD9B0B: tokio::runtime::blocking::pool::Spawner::spawn_thread (pool.rs:471)
+|                   ->88.03% (3,648B) 0x1DD95DB: tokio::runtime::blocking::pool::Spawner::spawn_task (pool.rs:421)
+|                     ->88.03% (3,648B) 0x1DD8513: tokio::runtime::blocking::pool::Spawner::spawn_blocking_inner (pool.rs:389)
+|                       ->88.03% (3,648B) 0x1DD6FA3: tokio::runtime::blocking::pool::Spawner::spawn_blocking (pool.rs:312)
+|                         ->88.03% (3,648B) 0x1DCB7E3: tokio::runtime::handle::Handle::spawn_blocking (handle.rs:239)
+|                           ->88.03% (3,648B) 0x1DD6257: tokio::runtime::blocking::pool::spawn_blocking (pool.rs:185)
+|                             ->88.03% (3,648B) 0x1DFA7D7: tokio::runtime::scheduler::multi_thread::worker::Launch::launch (worker.rs:457)
+|                               ->88.03% (3,648B) 0x1E45623: tokio::runtime::builder::Builder::build_threaded_runtime (builder.rs:1770)
+|                                 ->88.03% (3,648B) 0x1E448B3: tokio::runtime::builder::Builder::build (builder.rs:946)
+|                                   ->88.03% (3,648B) 0x411F7F: opensovd_cda::main (main.rs:16)
+|                                     ->88.03% (3,648B) 0x69CC83: core::ops::function::FnOnce::call_once (function.rs:250)
+|                                       ->88.03% (3,648B) 0x7C075B: std::sys::backtrace::__rust_begin_short_backtrace (backtrace.rs:152)
+|                                         ->88.03% (3,648B) 0x5F5EA7: std::rt::lang_start::{{closure}} (rt.rs:199)
+|                                           ->88.03% (3,648B) 0x1E81F43: call_once<(), (dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (function.rs:284)
+|                                             ->88.03% (3,648B) 0x1E81F43: do_call<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panicking.rs:589)
+|                                               ->88.03% (3,648B) 0x1E81F43: try<i32, &(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (panicking.rs:552)
+|                                                 ->88.03% (3,648B) 0x1E81F43: catch_unwind<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panic.rs:359)
+|                                                   ->88.03% (3,648B) 0x1E81F43: {closure
+|                                                     ->88.03% (3,648B) 0x1E81F43: do_call<std::rt::lang_start_internal::{closure_env
+|                                                       ->88.03% (3,648B) 0x1E81F43: try<isize, std::rt::lang_start_internal::{closure_env
+|                                                         ->88.03% (3,648B) 0x1E81F43: catch_unwind<std::rt::lang_start_internal::{closure_env
+|                                                           ->88.03% (3,648B) 0x1E81F43: std::rt::lang_start_internal (rt.rs:164)
+|                                                             ->88.03% (3,648B) 0x5F5E7B: std::rt::lang_start (rt.rs:198)
+|                                                               ->88.03% (3,648B) 0x412063: main (in /app/opensovd-cda)
+|                                                                 
+->07.72% (320B) 0x5118F83: __cxa_thread_atexit_impl (cxa_thread_atexit_impl.c:106)
+| ->07.72% (320B) 0x1E95C1F: std::sys::thread_local::destructors::linux_like::register (linux_like.rs:42)
+|   ->04.63% (192B) in 6 places, all below massif's threshold (1.00%)
+|   | 
+|   ->01.54% (64B) 0x1DFFE33: std::sys::thread_local::native::eager::Storage<T>::initialize (eager.rs:47)
+|   | ->01.54% (64B) 0x1DFFEA3: std::sys::thread_local::native::eager::Storage<T>::get (eager.rs:36)
+|   |   ->01.54% (64B) 0x1E087B7: tokio::runtime::context::CONTEXT::{{constant}}::{{closure}} (mod.rs:67)
+|   |     ->01.54% (64B) 0x1E225FB: core::ops::function::FnOnce::call_once (function.rs:250)
+|   |       ->01.54% (64B) 0x1E0CCAB: std::thread::local::LocalKey<T>::try_with (local.rs:314)
+|   |         ->01.54% (64B) 0x1E1E0B3: tokio::runtime::context::current::try_set_current (current.rs:34)
+|   |           ->01.54% (64B) 0x1DCB667: tokio::runtime::handle::Handle::enter (handle.rs:89)
+|   |             ->01.54% (64B) in 2 places, all below massif's threshold (1.00%)
+|   |               
+|   ->01.54% (64B) 0x1E8290F: initialize<core::cell::Cell<std::thread::spawnhook::SpawnHooks>> (eager.rs:47)
+|     ->01.54% (64B) 0x1E8290F: get<core::cell::Cell<std::thread::spawnhook::SpawnHooks>> (eager.rs:36)
+|       ->01.54% (64B) 0x1E8290F: {closure
+|         ->01.54% (64B) 0x1E8290F: call_once<std::thread::spawnhook::SPAWN_HOOKS::{constant
+|           ->01.54% (64B) 0x1E8290F: initialize_with<core::cell::Cell<std::thread::spawnhook::SpawnHooks>, std::thread::local::{impl
+|             ->01.54% (64B) 0x1E8290F: set<std::thread::spawnhook::SpawnHooks> (local.rs:376)
+|               ->01.54% (64B) 0x1E8290F: std::thread::spawnhook::ChildSpawnHooks::run (spawnhook.rs:148)
+|                 ->01.54% (64B) 0x1E397FB: std::thread::Builder::spawn_unchecked_::{{closure}}::{{closure}}::{{closure}} (mod.rs:558)
+|                   ->01.54% (64B) 0x1E17B5B: std::sys::backtrace::__rust_begin_short_backtrace (backtrace.rs:152)
+|                     ->01.54% (64B) 0x1E3976F: std::thread::Builder::spawn_unchecked_::{{closure}}::{{closure}} (mod.rs:558)
+|                       ->01.54% (64B) 0x1E37ED7: <core::panic::unwind_safe::AssertUnwindSafe<F> as core::ops::function::FnOnce<()>>::call_once (unwind_safe.rs:272)
+|                         ->01.54% (64B) 0x1DE9BEF: std::panicking::try::do_call (panicking.rs:589)
+|                           ->01.54% (64B) 0x1E3E5D7: __rust_try (in /app/opensovd-cda)
+|                             ->01.54% (64B) 0x1E39323: try<(), core::panic::unwind_safe::AssertUnwindSafe<std::thread::{impl
+|                               ->01.54% (64B) 0x1E39323: catch_unwind<core::panic::unwind_safe::AssertUnwindSafe<std::thread::{impl
+|                                 ->01.54% (64B) 0x1E39323: std::thread::Builder::spawn_unchecked_::{{closure}} (mod.rs:557)
+|                                   ->01.54% (64B) 0x1E22247: core::ops::function::FnOnce::call_once{{vtable.shim}} (function.rs:250)
+|                                     ->01.54% (64B) 0x1E92167: call_once<(), dyn core::ops::function::FnOnce<(), Output=()>, alloc::alloc::Global> (boxed.rs:1966)
+|                                       ->01.54% (64B) 0x1E92167: call_once<(), alloc::boxed::Box<dyn core::ops::function::FnOnce<(), Output=()>, alloc::alloc::Global>, alloc::alloc::Global> (boxed.rs:1966)
+|                                         ->01.54% (64B) 0x1E92167: std::sys::pal::unix::thread::Thread::new::thread_start (thread.rs:97)
+|                                           ->01.54% (64B) 0x5165F37: start_thread (pthread_create.c:448)
+|                                             ->01.54% (64B) 0x51CDC2B: thread_start (clone.S:82)
+|                                               
+->00.00% (0B) in 1+ places, all below ms_print's threshold (01.00%)
+
+--------------------------------------------------------------------------------
+  n       time(ms)         total(B)   useful-heap(B) extra-heap(B)    stacks(B)
+--------------------------------------------------------------------------------
+ 76         12,729            4,104            3,936           168            0
+ 77         12,730            4,064            3,904           160            0
+ 78         12,730            4,024            3,872           152            0
+ 79         12,738            3,984            3,840           144            0
+ 80         12,738            3,944            3,808           136            0
+ 81         12,738            3,904            3,776           128            0
+ 82         12,738            3,864            3,744           120            0
+ 83         12,739            3,824            3,712           112            0
+ 84         12,739            3,784            3,680           104            0
+ 85         12,739            3,744            3,648            96            0
+97.44% (3,648B) (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+->97.44% (3,648B) 0x400F397: calloc (rtld-malloc.h:44)
+| ->97.44% (3,648B) 0x400F397: allocate_dtv (dl-tls.c:462)
+|   ->97.44% (3,648B) 0x400FEC3: _dl_allocate_tls (dl-tls.c:712)
+|     ->97.44% (3,648B) 0x5166947: allocate_stack (allocatestack.c:431)
+|       ->97.44% (3,648B) 0x5166947: pthread_create@@GLIBC_2.34 (pthread_create.c:660)
+|         ->97.44% (3,648B) 0x1E91FEF: std::sys::pal::unix::thread::Thread::new (thread.rs:76)
+|           ->97.44% (3,648B) 0x1E38EF7: std::thread::Builder::spawn_unchecked_ (mod.rs:598)
+|             ->97.44% (3,648B) 0x1E388E7: std::thread::Builder::spawn_unchecked (mod.rs:467)
+|               ->97.44% (3,648B) 0x1E39853: std::thread::Builder::spawn (mod.rs:399)
+|                 ->97.44% (3,648B) 0x1DD9B0B: tokio::runtime::blocking::pool::Spawner::spawn_thread (pool.rs:471)
+|                   ->97.44% (3,648B) 0x1DD95DB: tokio::runtime::blocking::pool::Spawner::spawn_task (pool.rs:421)
+|                     ->97.44% (3,648B) 0x1DD8513: tokio::runtime::blocking::pool::Spawner::spawn_blocking_inner (pool.rs:389)
+|                       ->97.44% (3,648B) 0x1DD6FA3: tokio::runtime::blocking::pool::Spawner::spawn_blocking (pool.rs:312)
+|                         ->97.44% (3,648B) 0x1DCB7E3: tokio::runtime::handle::Handle::spawn_blocking (handle.rs:239)
+|                           ->97.44% (3,648B) 0x1DD6257: tokio::runtime::blocking::pool::spawn_blocking (pool.rs:185)
+|                             ->97.44% (3,648B) 0x1DFA7D7: tokio::runtime::scheduler::multi_thread::worker::Launch::launch (worker.rs:457)
+|                               ->97.44% (3,648B) 0x1E45623: tokio::runtime::builder::Builder::build_threaded_runtime (builder.rs:1770)
+|                                 ->97.44% (3,648B) 0x1E448B3: tokio::runtime::builder::Builder::build (builder.rs:946)
+|                                   ->97.44% (3,648B) 0x411F7F: opensovd_cda::main (main.rs:16)
+|                                     ->97.44% (3,648B) 0x69CC83: core::ops::function::FnOnce::call_once (function.rs:250)
+|                                       ->97.44% (3,648B) 0x7C075B: std::sys::backtrace::__rust_begin_short_backtrace (backtrace.rs:152)
+|                                         ->97.44% (3,648B) 0x5F5EA7: std::rt::lang_start::{{closure}} (rt.rs:199)
+|                                           ->97.44% (3,648B) 0x1E81F43: call_once<(), (dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (function.rs:284)
+|                                             ->97.44% (3,648B) 0x1E81F43: do_call<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panicking.rs:589)
+|                                               ->97.44% (3,648B) 0x1E81F43: try<i32, &(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (panicking.rs:552)
+|                                                 ->97.44% (3,648B) 0x1E81F43: catch_unwind<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panic.rs:359)
+|                                                   ->97.44% (3,648B) 0x1E81F43: {closure
+|                                                     ->97.44% (3,648B) 0x1E81F43: do_call<std::rt::lang_start_internal::{closure_env
+|                                                       ->97.44% (3,648B) 0x1E81F43: try<isize, std::rt::lang_start_internal::{closure_env
+|                                                         ->97.44% (3,648B) 0x1E81F43: catch_unwind<std::rt::lang_start_internal::{closure_env
+|                                                           ->97.44% (3,648B) 0x1E81F43: std::rt::lang_start_internal (rt.rs:164)
+|                                                             ->97.44% (3,648B) 0x5F5E7B: std::rt::lang_start (rt.rs:198)
+|                                                               ->97.44% (3,648B) 0x412063: main (in /app/opensovd-cda)
+|                                                                 
+->00.00% (0B) in 1+ places, all below ms_print's threshold (01.00%)
+
+--------------------------------------------------------------------------------
+  n       time(ms)         total(B)   useful-heap(B) extra-heap(B)    stacks(B)
+--------------------------------------------------------------------------------
+ 86         12,751            3,432            3,344            88            0
+ 87         12,751            3,120            3,040            80            0
+ 88         12,751            2,808            2,736            72            0
+ 89         12,751            2,496            2,432            64            0
+ 90         12,751            2,184            2,128            56            0
+ 91         12,751            1,872            1,824            48            0
+ 92         12,751            1,560            1,520            40            0
+ 93         12,751            1,248            1,216            32            0
+ 94         12,751              936              912            24            0
+ 95         12,751              624              608            16            0
+97.44% (608B) (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+->97.44% (608B) 0x400F397: calloc (rtld-malloc.h:44)
+| ->97.44% (608B) 0x400F397: allocate_dtv (dl-tls.c:462)
+|   ->97.44% (608B) 0x400FEC3: _dl_allocate_tls (dl-tls.c:712)
+|     ->97.44% (608B) 0x5166947: allocate_stack (allocatestack.c:431)
+|       ->97.44% (608B) 0x5166947: pthread_create@@GLIBC_2.34 (pthread_create.c:660)
+|         ->97.44% (608B) 0x1E91FEF: std::sys::pal::unix::thread::Thread::new (thread.rs:76)
+|           ->97.44% (608B) 0x1E38EF7: std::thread::Builder::spawn_unchecked_ (mod.rs:598)
+|             ->97.44% (608B) 0x1E388E7: std::thread::Builder::spawn_unchecked (mod.rs:467)
+|               ->97.44% (608B) 0x1E39853: std::thread::Builder::spawn (mod.rs:399)
+|                 ->97.44% (608B) 0x1DD9B0B: tokio::runtime::blocking::pool::Spawner::spawn_thread (pool.rs:471)
+|                   ->97.44% (608B) 0x1DD95DB: tokio::runtime::blocking::pool::Spawner::spawn_task (pool.rs:421)
+|                     ->97.44% (608B) 0x1DD8513: tokio::runtime::blocking::pool::Spawner::spawn_blocking_inner (pool.rs:389)
+|                       ->97.44% (608B) 0x1DD6FA3: tokio::runtime::blocking::pool::Spawner::spawn_blocking (pool.rs:312)
+|                         ->97.44% (608B) 0x1DCB7E3: tokio::runtime::handle::Handle::spawn_blocking (handle.rs:239)
+|                           ->97.44% (608B) 0x1DD6257: tokio::runtime::blocking::pool::spawn_blocking (pool.rs:185)
+|                             ->97.44% (608B) 0x1DFA7D7: tokio::runtime::scheduler::multi_thread::worker::Launch::launch (worker.rs:457)
+|                               ->97.44% (608B) 0x1E45623: tokio::runtime::builder::Builder::build_threaded_runtime (builder.rs:1770)
+|                                 ->97.44% (608B) 0x1E448B3: tokio::runtime::builder::Builder::build (builder.rs:946)
+|                                   ->97.44% (608B) 0x411F7F: opensovd_cda::main (main.rs:16)
+|                                     ->97.44% (608B) 0x69CC83: core::ops::function::FnOnce::call_once (function.rs:250)
+|                                       ->97.44% (608B) 0x7C075B: std::sys::backtrace::__rust_begin_short_backtrace (backtrace.rs:152)
+|                                         ->97.44% (608B) 0x5F5EA7: std::rt::lang_start::{{closure}} (rt.rs:199)
+|                                           ->97.44% (608B) 0x1E81F43: call_once<(), (dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (function.rs:284)
+|                                             ->97.44% (608B) 0x1E81F43: do_call<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panicking.rs:589)
+|                                               ->97.44% (608B) 0x1E81F43: try<i32, &(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (panicking.rs:552)
+|                                                 ->97.44% (608B) 0x1E81F43: catch_unwind<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panic.rs:359)
+|                                                   ->97.44% (608B) 0x1E81F43: {closure
+|                                                     ->97.44% (608B) 0x1E81F43: do_call<std::rt::lang_start_internal::{closure_env
+|                                                       ->97.44% (608B) 0x1E81F43: try<isize, std::rt::lang_start_internal::{closure_env
+|                                                         ->97.44% (608B) 0x1E81F43: catch_unwind<std::rt::lang_start_internal::{closure_env
+|                                                           ->97.44% (608B) 0x1E81F43: std::rt::lang_start_internal (rt.rs:164)
+|                                                             ->97.44% (608B) 0x5F5E7B: std::rt::lang_start (rt.rs:198)
+|                                                               ->97.44% (608B) 0x412063: main (in /app/opensovd-cda)
+|                                                                 
+->00.00% (0B) in 1+ places, all below ms_print's threshold (01.00%)
+
+--------------------------------------------------------------------------------
+  n       time(ms)         total(B)   useful-heap(B) extra-heap(B)    stacks(B)
+--------------------------------------------------------------------------------
+ 96         12,751              312              304             8            0
+ 97         12,751                0                0             0            0

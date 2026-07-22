@@ -1,0 +1,54 @@
+# SPDX-FileCopyrightText: 2025 Copyright (c) Contributors to the Eclipse Foundation
+#
+# See the NOTICE file(s) distributed with this work for additional
+# information regarding copyright ownership.
+#
+# This program and the accompanying materials are made available under the
+# terms of the Apache License Version 2.0 which is available at
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+# Memory profiling with Valgrind Massif.
+#
+# Usage (from testcontainer/ directory):
+#
+#   # 1. Build & start (ECU-Sim + CDA under Massif):
+#   docker compose -f docker-compose.yml -f docker-compose.massif.yml up --build
+#
+#   # 2. Let the CDA run your scenario, then stop it (Ctrl+C or):
+#   docker compose -f docker-compose.yml -f docker-compose.massif.yml stop cda
+#
+#   # 3. Retrieve and visualise the results:
+#   ms_print massif-output/massif.out > massif.txt
+#   # – or use massif-visualizer (GUI) on the .out file directly
+#
+# The massif.out file is written to ./massif-output/ on the host.
+
+services:
+  cda:
+    build:
+      context: ..
+      dockerfile: testcontainer/cda/Dockerfile.massif
+      args:
+        - SOURCE_DATE_EPOCH
+        - SOURCE_GIT_SHA
+    # Valgrind needs ptrace – SYS_PTRACE is sufficient; avoid full privileged mode.
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - seccomp:unconfined
+    volumes:
+      - ./odx:/app/odx:ro
+      - ./cda-test-config.toml:/app/cda-test-config.toml:ro
+      - ./flash_files:/app/flash:ro
+      # Massif output lands here on the host:
+      - ./massif-output:/output
+    environment:
+      - RUST_LOG=info
+      - CDA_CONFIG_FILE=/app/cda-test-config.toml
+    # Additional CDA arguments go after the "--":
+    command: ["-d", "/app/odx"]
+    # Massif + full debug build is slow – give it time to start.
+    healthcheck:
+      disable: true
