@@ -51,6 +51,8 @@ futures = { workspace = true }
 async-trait = { workspace = true }
 # allocator
 mimalloc = { git = "https://github.com/theswiftfox/mimalloc.git", rev = "afbaaa5" }
+# heap profiling (optional, enabled via the `dhat-heap` feature)
+dhat = { version = "0.3", optional = true }
 schemars = { workspace = true }
 serde = { workspace = true, features = ["derive"] }
 serde_json = { workspace = true }
@@ -93,3 +95,6 @@ integration-tests = []
 health = []
 config-optional = []
 systemd-notify = ["dep:cda-extra", "cda-extra/systemd-notify"]
+# Enables dhat heap profiling. Replaces the global allocator with dhat's
+# instrumented allocator and writes `dhat-heap.json` on shutdown.
+dhat-heap = ["dep:dhat"]

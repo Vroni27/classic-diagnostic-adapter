@@ -13,5 +13,9 @@
 
 #[tokio::main]
 async fn main() -> Result<(), opensovd_cda_lib::AppError> {
+    // Keep the profiler alive for the whole process lifetime; on shutdown its
+    // Drop impl writes `dhat-heap.json`.
+    #[cfg(feature = "dhat-heap")]
+    let _dhat_profiler = opensovd_cda_lib::init_heap_profiler();
     opensovd_cda_lib::run_from_cli().await
 }

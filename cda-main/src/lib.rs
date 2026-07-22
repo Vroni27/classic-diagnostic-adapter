@@ -44,8 +44,27 @@ pub mod config;
 pub mod mdd;
 pub mod update;
 
+#[cfg(not(feature = "dhat-heap"))]
 #[global_allocator]
 static GLOBAL: mimalloc::MiMalloc = mimalloc::MiMalloc;
+
+/// When the `dhat-heap` feature is enabled, dhat's instrumented allocator
+/// replaces mimalloc so that every allocation is tracked for heap profiling.
+#[cfg(feature = "dhat-heap")]
+#[global_allocator]
+static GLOBAL: dhat::Alloc = dhat::Alloc;
+
+/// Start the dhat heap profiler.
+///
+/// The returned guard must be kept alive for the duration of the process; when
+/// it is dropped (e.g. on graceful shutdown) dhat writes `dhat-heap.json` into
+/// the current working directory, which can be inspected at
+/// <https://nnethercote.github.io/dh_view/dh_view.html>.
+#[cfg(feature = "dhat-heap")]
+#[must_use]
+pub fn init_heap_profiler() -> dhat::Profiler {
+    dhat::Profiler::new_heap()
+}
 
 const DOIP_HEALTH_COMPONENT_KEY: &str = "doip";
 
