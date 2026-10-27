@@ -320,6 +320,7 @@ fn base_test_config(
             p
         },
         flat_buf: FlatbBufConfig::default(),
+        pager: opensovd_cda_lib::config::configfile::PagerConfig::default(),
         functional_description: FunctionalDescriptionConfig {
             description_database: "functional_groups".to_owned(),
             enabled_functional_groups: None,
