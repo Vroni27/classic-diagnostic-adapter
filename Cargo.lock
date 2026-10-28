@@ -2289,6 +2289,7 @@ dependencies = [
  "cda-database",
  "cda-health",
  "cda-interfaces",
+ "cda-pager",
  "cda-plugin-communication-management",
  "cda-plugin-lock-priority",
  "cda-plugin-security",

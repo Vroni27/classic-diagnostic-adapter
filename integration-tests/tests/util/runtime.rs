@@ -661,6 +661,10 @@ fn write_config_toml(
 
     "/app/odx".clone_into(&mut config.database.dir);
 
+    config.pager.enabled = true;
+    config.pager.pool_size_bytes = 20 * 1024 * 1024;
+    config.pager.eviction = cda_pager::EvictionKind::Fifo;
+
     // The socketcand daemon runs in its own service, reachable by service name
     // over the compose bridge network.
     if let Some(can) = config.can.as_mut() {

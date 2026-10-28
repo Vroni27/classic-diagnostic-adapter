@@ -35,6 +35,7 @@ cda-plugin-security = { workspace = true }
 cda-comm-doip = { workspace = true }
 cda-comm-uds = { workspace = true }
 cda-health = { workspace = true }
+cda-pager = { workspace = true }
 opensovd_cda_lib = { workspace = true, features = ["integration-tests"] }
 
 # External dependencies
