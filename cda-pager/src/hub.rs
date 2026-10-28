@@ -500,6 +500,7 @@ fn create_uffd() -> Result<Uffd, PagerError> {
     }
     let raw_fd = raw_fd as RawFd;
 
+    // Initialize userfaultfd
     let mut api = userfaultfd_sys::uffdio_api {
         api: userfaultfd_sys::UFFD_API,
         features: 0,
